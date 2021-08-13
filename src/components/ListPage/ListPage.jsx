@@ -1,5 +1,6 @@
 import React, { Component } from 'react'; 
 import request from 'superagent';
+import List from './List/List';
 
 export default class ListPage extends Component {
   state = {
@@ -14,7 +15,7 @@ export default class ListPage extends Component {
     const { discData } = this.state;
     return (
       <div>
-        
+        <List data={discData}/>
       </div>
     )
   }
