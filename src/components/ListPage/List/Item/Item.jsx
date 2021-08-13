@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from './Item.module.css';
 
 export default class Item extends Component {
   render() {
@@ -11,7 +12,7 @@ export default class Item extends Component {
       } 
     } = this.props;
     return (
-      <div>
+      <div className={styles.item}>
         <img src={image} alt={name} />
         <h3>{name}</h3>
         <h5>{brand}</h5>
