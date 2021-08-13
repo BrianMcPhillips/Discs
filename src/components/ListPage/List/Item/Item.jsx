@@ -6,14 +6,16 @@ export default class Item extends Component {
       data: {
         brand,
         name,
-        speed
+        speed,
+        image
       } 
     } = this.props;
     return (
       <div>
-       <h3>{name}</h3>
-       <h5>{brand}</h5>
-       <p>{speed}</p>
+        <img src={image} alt={name} />
+        <h3>{name}</h3>
+        <h5>{brand}</h5>
+        <p>{speed}</p>
       </div>
     )
   }
