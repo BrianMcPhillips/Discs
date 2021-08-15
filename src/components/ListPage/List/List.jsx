@@ -10,7 +10,7 @@ export default class List extends Component {
       // Map over props data to dynamically render items to page
       <div className={styles.list}>
         {
-          data.map(item => <Item key={item.name} data={item}/>)
+          data.map((item, i) => <Item key={item.name + i} data={item}/>)
         }
       </div>
     )
