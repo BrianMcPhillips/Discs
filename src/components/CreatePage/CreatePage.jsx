@@ -20,14 +20,13 @@ export default class CreatePage extends Component {
 
   handleSubmit = async(e) => {
     e.preventDefault();
-    const discData = {
+    const response =  await createDisc({
       brand: this.state.brand,
       name: this.state.name,
       speed: this.state.speed,
       image: this.state.image
-    };
-   const response =  await createDisc(discData);
-   this.setState({ discState: response.body[0] });
+    });
+    this.setState({ discState: response.body });
 
   }
 
