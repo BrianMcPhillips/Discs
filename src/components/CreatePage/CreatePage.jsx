@@ -19,20 +19,20 @@ export default class CreatePage extends Component {
     e.preventDefault();
   }
 
-  handleBrandChange = () => {
-
+  handleBrandChange = (e) => {
+    this.setState({ brand: e.target.value })
   }
 
-  handleNameChange = () => {
-
+  handleNameChange = (e) => {
+    this.setState=({ name: e.target.value })
   }
 
-  handleSpeedChange = () => {
-
+  handleSpeedChange = (e) => {
+    this.setState({ speed: e.target.value })
   }
 
-  handleImageChange = () => {
-
+  handleImageChange = (e) => {
+    this.setState({ image: e.target.value })
   }
 
   render() {
@@ -44,7 +44,7 @@ export default class CreatePage extends Component {
           <form onSubmit={this.handleSubmit}>
             <label>
               <p>Brand</p>
-              <select>
+              <select onChange={this.handleBrandChange}>
                 {
                   brands.map(option => <option key={option} value={brand}>{option}</option>)
                 }
@@ -52,15 +52,15 @@ export default class CreatePage extends Component {
             </label>
             <label>
               <p>Name</p>
-              <input type='text' value={name}/>
+              <input onChange={this.handleNameChange} type='text' value={name}/>
             </label>
             <label>
               <p>Speed</p>
-              <input type='number' value={speed} />
+              <input onChange={this.handleSpeedChange} type='number' value={speed} />
             </label>
             <label>
               <p>Image</p>
-              <input type="text" value={image}/>
+              <input onChange={this.handleImageChange} type="text" value={image}/>
             </label>
             <button>Add Disc</button>
           </form>
