@@ -1,6 +1,7 @@
 import React, { Component } from 'react'; 
 import List from './List/List';
 import { fetchDiscs } from '../../services/discs-api';
+import styles from './ListPage.module.css';
 
 export default class ListPage extends Component {
   //Set default state
@@ -18,7 +19,7 @@ export default class ListPage extends Component {
     //Destructure state
     const { discData } = this.state;
     return (
-      <div>
+      <div className={styles.list}>
         <List data={discData}/>
       </div>
     )
