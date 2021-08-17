@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { createDisc } from '../../services/discs-api';
 
 const brands = [
   'Innova',
@@ -13,10 +14,21 @@ export default class CreatePage extends Component {
     brand: 'Innova',
     name: '',
     speed: 1,
-    image: ''
+    image: '',
+    discState: null
   }
-  handleSubmit = (e) => {
+
+  handleSubmit = async(e) => {
     e.preventDefault();
+    const discData = {
+      brand: this.state.brand,
+      name: this.state.name,
+      speed: this.state.speed,
+      image: this.state.image
+    };
+   const response =  await createDisc(discData);
+   this.setState({ discState: response.body[0] });
+
   }
 
   handleBrandChange = (e) => {
@@ -24,7 +36,7 @@ export default class CreatePage extends Component {
   }
 
   handleNameChange = (e) => {
-    this.setState=({ name: e.target.value })
+    this.setState({ name: e.target.value })
   }
 
   handleSpeedChange = (e) => {
@@ -36,7 +48,7 @@ export default class CreatePage extends Component {
   }
 
   render() {
-    const { brand, name, speed, image } = this.state;
+    const { brand, name, speed, image, discState } = this.state;
     return (
       <div>
         <h1>Add a disc to database</h1>
@@ -46,25 +58,34 @@ export default class CreatePage extends Component {
               <p>Brand</p>
               <select onChange={this.handleBrandChange}>
                 {
-                  brands.map(option => <option key={option} value={brand}>{option}</option>)
+                  brands.map(option => <option key={option} defaultValue={brand}>{option}</option>)
                 }
               </select>
             </label>
             <label>
               <p>Name</p>
-              <input onChange={this.handleNameChange} type='text' value={name}/>
+              <input onChange={this.handleNameChange} type='text' defaultValue={name}/>
             </label>
             <label>
               <p>Speed</p>
-              <input onChange={this.handleSpeedChange} type='number' value={speed} />
+              <input onChange={this.handleSpeedChange} type='number' defaultValue={speed} />
             </label>
             <label>
               <p>Image</p>
-              <input onChange={this.handleImageChange} type="text" value={image}/>
+              <input onChange={this.handleImageChange} type="text" defaultValue={image}/>
             </label>
             <button>Add Disc</button>
           </form>
         </div>
+        {
+          discState !== null && 
+            <div>
+              <img src={discState.image} alt={discState.name} /> 
+              <h2>{discState.brand}</h2>
+              <h3>{discState.name}</h3>
+              <p>Speed: {discState.speed}</p>
+            </div>
+        }
       </div>
     )
   }
