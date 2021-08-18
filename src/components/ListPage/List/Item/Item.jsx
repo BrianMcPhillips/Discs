@@ -10,9 +10,11 @@ export default class Item extends Component {
         brand,
         name,
         speed,
+        awesome,
         image
       } 
     } = this.props;
+    console.log(this.props);
     return (
       //List of relevant info for each item being rendered to page
       <div className={styles.item}>
@@ -21,6 +23,7 @@ export default class Item extends Component {
         </Link>
         <h3>{name}</h3>
         <h5>{brand}</h5>
+        <p>Disc awesome: { awesome ? 'Yes' : 'No' }</p>
         <p>{speed}</p>
       </div>
     )
