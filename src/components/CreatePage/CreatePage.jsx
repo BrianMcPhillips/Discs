@@ -14,6 +14,7 @@ export default class CreatePage extends Component {
     brand: 'Innova',
     name: '',
     speed: 1,
+    awesome: false,
     image: '',
     discState: null
   }
@@ -24,6 +25,7 @@ export default class CreatePage extends Component {
       brand: this.state.brand,
       name: this.state.name,
       speed: this.state.speed,
+      awesome: this.state.awesome,
       image: this.state.image
     });
     this.setState({ discState: response.body });
@@ -42,12 +44,16 @@ export default class CreatePage extends Component {
     this.setState({ speed: e.target.value })
   }
 
+  handleAwesomeChange = (e) => {
+    this.setState({ awesome: e.target.checked })
+  }
+
   handleImageChange = (e) => {
     this.setState({ image: e.target.value })
   }
 
   render() {
-    const { brand, name, speed, image, discState } = this.state;
+    const { brand, name, speed, image, awesome, discState } = this.state;
     return (
       <div>
         <h1>Add a disc to database</h1>
@@ -70,6 +76,10 @@ export default class CreatePage extends Component {
               <input onChange={this.handleSpeedChange} type='number' defaultValue={speed} />
             </label>
             <label>
+              <p>Awesome</p>
+              <input onChange={this.handleAwesomeChange} type='checkbox' defaultValue={awesome} />
+            </label>
+            <label>
               <p>Image</p>
               <input onChange={this.handleImageChange} type="text" defaultValue={image}/>
             </label>
@@ -82,6 +92,7 @@ export default class CreatePage extends Component {
               <img src={discState.image} alt={discState.name} /> 
               <h2>{discState.brand}</h2>
               <h3>{discState.name}</h3>
+              <p>Awesome: {discState.awesome ? 'Yes' : 'No' }</p>
               <p>Speed: {discState.speed}</p>
             </div>
         }
