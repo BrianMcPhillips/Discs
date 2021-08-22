@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { createDisc } from '../../services/discs-api';
+import { createDisc, fetchBrands } from '../../services/discs-api';
 
-const brands = [
-  'Innova',
-  'Dynamic Discs',
-  'Discraft',
-  'Discmania',
-  'Prodigy Disc'
-]
+// const brands = [
+//   'Innova',
+//   'Dynamic Discs',
+//   'Discraft',
+//   'Discmania',
+//   'Prodigy Disc'
+// ]
 
 export default class CreatePage extends Component {
   state = {
@@ -16,7 +16,14 @@ export default class CreatePage extends Component {
     speed: 1,
     awesome: false,
     image: '',
-    discState: null
+    discState: null,
+    brandState: []
+  }
+
+  componentDidMount = async() => {
+    const data = await fetchBrands();
+    this.setState({ brandState: data.body })
+    console.log(this.state.brandState);
   }
 
   handleSubmit = async(e) => {
@@ -53,7 +60,14 @@ export default class CreatePage extends Component {
   }
 
   render() {
-    const { brand, name, speed, image, awesome, discState } = this.state;
+    const {
+      brand, 
+      name, 
+      speed, 
+      image, 
+      awesome, 
+      discState, 
+      brandState } = this.state;
     return (
       <div>
         <h1>Add a disc to database</h1>
@@ -63,7 +77,7 @@ export default class CreatePage extends Component {
               <p>Brand</p>
               <select onChange={this.handleBrandChange}>
                 {
-                  brands.map(option => <option key={option} defaultValue={brand}>{option}</option>)
+                  brandState.map((option, i) => <option key={option.label + i} defaultValue={brand}>{option.label}</option>)
                 }
               </select>
             </label>
