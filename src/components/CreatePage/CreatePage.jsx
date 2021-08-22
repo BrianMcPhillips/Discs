@@ -23,7 +23,6 @@ export default class CreatePage extends Component {
   componentDidMount = async() => {
     const data = await fetchBrands();
     this.setState({ brandState: data.body })
-    console.log(this.state.brandState);
   }
 
   handleSubmit = async(e) => {
