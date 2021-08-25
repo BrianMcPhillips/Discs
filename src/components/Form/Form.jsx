@@ -19,6 +19,7 @@ export default class Form extends Component {
       handleSpeed,
       handleAwesome,
       handleImage,
+      handleSubmit,
       brand,
       name,
       speed,
@@ -27,7 +28,7 @@ export default class Form extends Component {
     } = this.props;
     return (
       <div>
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <label>
           <p>Brand</p>
           <select onChange={handleBrand}>
@@ -52,7 +53,7 @@ export default class Form extends Component {
           <p>Image</p>
           <input onChange={handleImage} type="text" defaultValue={image}/>
         </label>
-        <button>Add Disc</button>
+        <button>Submit</button>
       </form>
     </div>
     )

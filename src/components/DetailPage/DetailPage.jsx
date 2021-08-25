@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { fetchDiscById, deleteDisc } from '../../services/discs-api';
+import { fetchDiscById, deleteDisc, updateDisc } from '../../services/discs-api';
 import Form from '../Form/Form';
 
 export default class DetailPage extends Component {
   state = {
     singleDisc: {},
     updateBtn: 'Off',
+    discId: 0,
     brand: '',
     name: '',
     speed: 1,
@@ -16,8 +17,10 @@ export default class DetailPage extends Component {
   componentDidMount = async() => {
     const id = this.props.match.params.id;
     const data = await fetchDiscById(id);
+    console.log(data.body);
     this.setState({ 
       singleDisc: data.body,
+      discId: data.body.id,
       brand: data.body.brand,
       name: data.body.name,
       speed: data.body.speed,
@@ -32,10 +35,31 @@ export default class DetailPage extends Component {
     this.props.history.push('/');
   }
   handleUpdateBtn = () => {
-    this.setState({ updateBtn: 'On' })
+
+    this.state.updateBtn === 'Off' 
+    ? this.setState({ updateBtn: 'On' }) 
+    : this.setState({ updateBtn: 'Off' });
   }
+
+  handleSubmit = async(e) => {
+    e.preventDefault();
+    const updatedDisc = {
+      brand: this.state.brand,
+      name: this.state.name,
+      speed: this.state.speed,
+      awesome: this.state.awesome,
+      image: this.state.image
+    };
+    const id = this.state.discId;
+    const upData = await updateDisc(id, updatedDisc);
+    const data = await fetchDiscById(upData.body.name);
+    this.setState({ singleDisc: data.body });
+  }
+
   handleBrandChange = (e) => {
-    this.setState({ brand: e.target.value })
+    e.target.value === 'Innova' 
+    ? this.setState({ brand: 1 })
+    : this.setState({ brand: e.target.value })
   }
 
   handleNameChange = (e) => {
@@ -91,6 +115,7 @@ export default class DetailPage extends Component {
                 handleSpeed={this.handleSpeedChange}
                 handleAwesome={this.handleAwesomeChange}
                 handleImage={this.handleImageChange}
+                handleSubmit={this.handleSubmit}
               /> 
             </div>
         }
