@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { createDisc, fetchBrands } from '../../services/discs-api';
+import { createDisc } from '../../services/discs-api';
+import Form from '../Form/Form';
 
 export default class CreatePage extends Component {
   state = {
@@ -7,13 +8,7 @@ export default class CreatePage extends Component {
     name: '',
     speed: 1,
     awesome: false,
-    image: '',
-    brandState: []
-  }
-
-  componentDidMount = async() => {
-    const data = await fetchBrands();
-    this.setState({ brandState: data.body })
+    image: ''
   }
 
   handleSubmit = async(e) => {
@@ -51,44 +46,27 @@ export default class CreatePage extends Component {
 
   render() {
     const {
-      brand, 
-      name, 
-      speed, 
-      image, 
-      awesome, 
-      brandState } = this.state;
+      brand,
+      name,
+      speed,
+      awesome,
+      image
+    } = this.state;
     return (
       <div>
-        <h1>Add a disc to database</h1>
-        <div>
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              <p>Brand</p>
-              <select onChange={this.handleBrandChange}>
-                {
-                  brandState.map((option, i) => <option key={option.label + i} defaultValue={brand} value={option.id}>{option.label}</option>)
-                }
-              </select>
-            </label>
-            <label>
-              <p>Name</p>
-              <input onChange={this.handleNameChange} type='text' defaultValue={name}/>
-            </label>
-            <label>
-              <p>Speed</p>
-              <input onChange={this.handleSpeedChange} type='number' defaultValue={speed} />
-            </label>
-            <label>
-              <p>Awesome</p>
-              <input onChange={this.handleAwesomeChange} type='checkbox' defaultValue={awesome} />
-            </label>
-            <label>
-              <p>Image</p>
-              <input onChange={this.handleImageChange} type="text" defaultValue={image}/>
-            </label>
-            <button>Add Disc</button>
-          </form>
-        </div>
+        <Form 
+          handleSubmit={this.handleSubmit}
+          handleBrand={this.handleBrandChange}
+          handleName={this.handleNameChange}
+          handleSpeed={this.handleSpeedChange}
+          handleAwesome={this.handleAwesomeChange}
+          handleImage={this.handleImageChange}
+          brand={brand}
+          name={name}
+          speed={speed}
+          awesome={awesome}
+          image={image}
+        />
       </div>
     )
   }
