@@ -8,7 +8,6 @@ export default class CreatePage extends Component {
     speed: 1,
     awesome: false,
     image: '',
-    discState: null,
     brandState: []
   }
 
@@ -19,14 +18,14 @@ export default class CreatePage extends Component {
 
   handleSubmit = async(e) => {
     e.preventDefault();
-    const response =  await createDisc({
+    await createDisc({
       brand: this.state.brand,
       name: this.state.name,
       speed: this.state.speed,
       awesome: this.state.awesome,
       image: this.state.image
     });
-    this.setState({ discState: response.body });
+    this.props.history.push('/');
 
   }
 
@@ -57,7 +56,6 @@ export default class CreatePage extends Component {
       speed, 
       image, 
       awesome, 
-      discState, 
       brandState } = this.state;
     return (
       <div>
@@ -91,16 +89,6 @@ export default class CreatePage extends Component {
             <button>Add Disc</button>
           </form>
         </div>
-        {
-          discState !== null && 
-            <div>
-              <img src={discState.image} alt={discState.name} /> 
-              <h2>{discState.brand}</h2>
-              <h3>{discState.name}</h3>
-              <p>Awesome: {discState.awesome ? 'Yes' : 'No' }</p>
-              <p>Speed: {discState.speed}</p>
-            </div>
-        }
       </div>
     )
   }
