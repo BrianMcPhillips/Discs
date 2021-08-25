@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
 import { createDisc, fetchBrands } from '../../services/discs-api';
 
-// const brands = [
-//   'Innova',
-//   'Dynamic Discs',
-//   'Discraft',
-//   'Discmania',
-//   'Prodigy Disc'
-// ]
-
 export default class CreatePage extends Component {
   state = {
-    brand: 'Innova',
+    brand: 1,
     name: '',
     speed: 1,
     awesome: false,
@@ -76,7 +68,7 @@ export default class CreatePage extends Component {
               <p>Brand</p>
               <select onChange={this.handleBrandChange}>
                 {
-                  brandState.map((option, i) => <option key={option.label + i} defaultValue={brand}>{option.label}</option>)
+                  brandState.map((option, i) => <option key={option.label + i} defaultValue={brand} value={option.id}>{option.label}</option>)
                 }
               </select>
             </label>
