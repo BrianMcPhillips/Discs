@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import styles from './SignIn.module.css';
+import { signUp, signIn } from '../../services/discs-api';
 
 export default class SignIn extends Component {
   state = {
-    switchState: 'Off'
+    switchState: 'Off',
+    email: '',
+    password: ''
   }
 
   handleSwitchOn = () => {
@@ -11,6 +14,20 @@ export default class SignIn extends Component {
   }
   handleSwitchOff = () => {
     this.setState({ switchState: 'Off' });
+  }
+  handleSignUp = async(e) => {
+    e.preventDefault();
+    const token = await signUp({
+      email: this.state.email,
+      password: this.state.password
+    });
+    console.log(token.body);
+  }
+  handleEmail = (e) => {
+    this.setState({ email: e.target.value })
+  }
+  handlePassword = (e) => {
+    this.setState({ password: e.target.value })
   }
 
   render() {
@@ -43,14 +60,14 @@ export default class SignIn extends Component {
         {
           switchState === 'On' && 
             <div>
-              <h1>Register</h1>
-              <form>
+              <h1>Sign Up</h1>
+              <form onSubmit={this.handleSignUp}>
                 <div className={styles.formControl}>
-                  <input type="text" required/>
+                  <input onChange={this.handleEmail}type="text" required/>
                   <label>Email</label>
                 </div>
                 <div className={styles.formControl}>
-                  <input type="password" required/>
+                  <input onChange={this.handlePassword} type="password" required/>
                   <label>Password</label>
                 </div>
                 <button className={styles.btn}>Sign Up</button>
