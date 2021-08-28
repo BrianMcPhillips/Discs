@@ -25,28 +25,27 @@ export default class CreatePage extends Component {
   }
 
   handleBrandChange = (e) => {
-    this.setState({ brand: e.target.value })
+    this.setState({ brand: Number(e.target.value) });
   }
 
   handleNameChange = (e) => {
-    this.setState({ name: e.target.value })
+    this.setState({ name: e.target.value });
   }
 
   handleSpeedChange = (e) => {
-    this.setState({ speed: e.target.value })
+    this.setState({ speed: e.target.value });
   }
 
   handleAwesomeChange = (e) => {
-    this.setState({ awesome: e.target.checked })
+    this.setState({ awesome: e.target.checked });
   }
 
   handleImageChange = (e) => {
-    this.setState({ image: e.target.value })
+    this.setState({ image: e.target.value });
   }
 
   render() {
     const {
-      brand,
       name,
       speed,
       awesome,
@@ -61,7 +60,6 @@ export default class CreatePage extends Component {
           handleSpeed={this.handleSpeedChange}
           handleAwesome={this.handleAwesomeChange}
           handleImage={this.handleImageChange}
-          brand={brand}
           name={name}
           speed={speed}
           awesome={awesome}

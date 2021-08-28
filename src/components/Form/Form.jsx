@@ -31,9 +31,9 @@ export default class Form extends Component {
       <form onSubmit={handleSubmit}>
         <label>
           <p>Brand</p>
-          <select onChange={handleBrand}>
+          <select onChange={handleBrand} defaultValue={brand}>
             {
-              brandState.map((option, i) => <option key={option.label + i} defaultValue={brand} value={option.id}>{option.label}</option>)
+              brandState.map((option, i) => <option key={option.label + i} value={option.id}>{option.label}</option>)
             }
           </select>
         </label>
