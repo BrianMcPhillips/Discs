@@ -20,7 +20,7 @@ export default class CreatePage extends Component {
       awesome: this.state.awesome,
       image: this.state.image
     });
-    this.props.history.push('/');
+    this.props.history.push('/list');
 
   }
 

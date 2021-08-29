@@ -17,11 +17,12 @@ export default class SignIn extends Component {
   }
   handleSignUp = async(e) => {
     e.preventDefault();
-    const token = await signUp({
+    const data = await signUp({
       email: this.state.email,
       password: this.state.password
     });
-    console.log(token.body);
+    localStorage.setItem('token', data.body.token);
+    this.props.history.push('/list');
   }
   handleEmail = (e) => {
     this.setState({ email: e.target.value })
