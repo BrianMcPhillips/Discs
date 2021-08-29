@@ -24,6 +24,15 @@ export default class SignIn extends Component {
     localStorage.setItem('token', data.body.token);
     this.props.history.push('/list');
   }
+  handleSignIn = async(e) => {
+    e.preventDefault();
+    const data = await signIn({
+      email: this.state.email,
+      password: this.state.password
+    });
+    localStorage.setItem('token', data.body.token);
+    this.props.history.push('/list');
+  }
   handleEmail = (e) => {
     this.setState({ email: e.target.value })
   }
@@ -41,13 +50,13 @@ export default class SignIn extends Component {
           switchState === 'Off' &&
             <div>
               <h1>Please Login</h1>
-              <form>
+              <form onSubmit={this.handleSignIn}>
                 <div className={styles.formControl}>
-                  <input type="text" required/>
+                  <input onChange={this.handleEmail} type="text" required/>
                   <label>Email</label>
                 </div>
                 <div className={styles.formControl}>
-                  <input type="password" required/>
+                  <input onChange={this.handlePassword} type="password" required/>
                   <label>Password</label>
                 </div>
                 <button className={styles.btn}>Login</button>
@@ -64,7 +73,7 @@ export default class SignIn extends Component {
               <h1>Sign Up</h1>
               <form onSubmit={this.handleSignUp}>
                 <div className={styles.formControl}>
-                  <input onChange={this.handleEmail}type="text" required/>
+                  <input onChange={this.handleEmail} type="text" required/>
                   <label>Email</label>
                 </div>
                 <div className={styles.formControl}>
