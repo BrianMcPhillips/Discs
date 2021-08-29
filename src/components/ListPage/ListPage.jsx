@@ -6,13 +6,17 @@ import styles from './ListPage.module.css';
 export default class ListPage extends Component {
   //Set default state
   state = {
-    discData: []
+    discData: [],
   }
 
   //Get data from backend and set it to state
   componentDidMount = async() => {
-    const data = await fetchDiscs();
-    this.setState({ discData: data.body })
+    const token = localStorage.getItem('token');
+    const data = await fetchDiscs(token);
+    
+    this.setState({ 
+      discData: data.body
+    })
     
   }
   render() {

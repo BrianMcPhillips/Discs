@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { fetchDiscById, deleteDisc, updateDisc } from '../../services/discs-api';
+import { fetchDiscById, deleteDisc, updateDisc, fetchBrands } from '../../services/discs-api';
 import Form from '../Form/Form';
 
 export default class DetailPage extends Component {
   state = {
     singleDisc: {},
+    brandData: [],
     updateBtn: 'Off',
     discId: 0,
-    brand: '',
+    brandId: 1,
+    brand: 1,
     name: '',
     speed: 1,
     awesome: false,
@@ -15,13 +17,16 @@ export default class DetailPage extends Component {
   }
 
   componentDidMount = async() => {
+    const brandData = await fetchBrands();
+
     const id = this.props.match.params.id;
     const data = await fetchDiscById(id);
-    console.log(data.body);
+    
+    const matchingBrand = brandData.body.find(brand => brand.name = data.body.brand)
     this.setState({ 
       singleDisc: data.body,
       discId: data.body.id,
-      brand: data.body.brand,
+      brand: matchingBrand.id,
       name: data.body.name,
       speed: data.body.speed,
       awesome: data.body.awesome,
@@ -44,7 +49,7 @@ export default class DetailPage extends Component {
   handleSubmit = async(e) => {
     e.preventDefault();
     const updatedDisc = {
-      brand: this.state.brand,
+      brand: this.state.brandId,
       name: this.state.name,
       speed: this.state.speed,
       awesome: this.state.awesome,
@@ -57,25 +62,23 @@ export default class DetailPage extends Component {
   }
 
   handleBrandChange = (e) => {
-    e.target.value === 'Innova' 
-    ? this.setState({ brand: 1 })
-    : this.setState({ brand: e.target.value })
+    this.setState({ brandId: Number(e.target.value) });
   }
 
   handleNameChange = (e) => {
-    this.setState({ name: e.target.value })
+    this.setState({ name: e.target.value });
   }
 
   handleSpeedChange = (e) => {
-    this.setState({ speed: e.target.value })
+    this.setState({ speed: e.target.value });
   }
 
   handleAwesomeChange = (e) => {
-    this.setState({ awesome: e.target.checked })
+    this.setState({ awesome: e.target.checked });
   }
 
   handleImageChange = (e) => {
-    this.setState({ image: e.target.value })
+    this.setState({ image: e.target.value });
   }
   
   render() {
@@ -86,7 +89,8 @@ export default class DetailPage extends Component {
       name,
       speed,
       awesome,
-      image
+      image,
+      brandData
     } = this.state;
     return (
       <div>
@@ -110,6 +114,7 @@ export default class DetailPage extends Component {
                 speed={speed}
                 awesome={awesome}
                 image={image}
+                brandState={brandData}
                 handleBrand={this.handleBrandChange}
                 handleName={this.handleNameChange}
                 handleSpeed={this.handleSpeedChange}
