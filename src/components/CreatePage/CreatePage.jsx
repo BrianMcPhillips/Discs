@@ -10,7 +10,11 @@ export default class CreatePage extends Component {
     awesome: false,
     image: ''
   }
-
+  componentDidMount = () => {
+    if(!this.props.token) {
+      this.props.history.push('/')
+    };
+  }
   handleSubmit = async(e) => {
     e.preventDefault();
     await createDisc({
@@ -19,7 +23,7 @@ export default class CreatePage extends Component {
       speed: this.state.speed,
       awesome: this.state.awesome,
       image: this.state.image
-    });
+    }, this.props.token);
     this.props.history.push('/list');
 
   }

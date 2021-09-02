@@ -11,7 +11,16 @@ import Header from './Header/Header';
 import SignIn from './SignIn/SignIn';
 
 export default class App extends Component {
+  state = {
+    token: null
+  }
+
+  handleToken = (token) => {
+    this.setState({ token: token })
+  }
+
   render() {
+    const { token } = this.state;
     return (
       <div>
         <Router>
@@ -20,22 +29,22 @@ export default class App extends Component {
             <Route
               path='/'
               exact
-              render={(routerProps) => <SignIn {...routerProps}/>}
+              render={(routerProps) => <SignIn handleToken={this.handleToken} {...routerProps}/>}
             />
             <Route
               path='/list'
               exact
-              render={(routerProps) => <ListPage {...routerProps}/>}
+              render={(routerProps) => <ListPage token={token} {...routerProps}/>}
             />
             <Route
               path='/create'
               exact
-              render={(routerProps) => <CreatePage {...routerProps}/>}
+              render={(routerProps) => <CreatePage token={token} {...routerProps}/>}
             />
             <Route
               path='/detail/:id'
               exact
-              render={(routerProps) => <DetailPage {...routerProps}/>}
+              render={(routerProps) => <DetailPage token={token} {...routerProps}/>}
             />
           </Switch>
         </Router>

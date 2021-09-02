@@ -13,14 +13,19 @@ export default class DetailPage extends Component {
     name: '',
     speed: 1,
     awesome: false,
-    image: ''
+    image: '',
+    ownerId: 0
   }
 
   componentDidMount = async() => {
-    const brandData = await fetchBrands();
+    if(!this.props.token) {
+      this.props.history.push('/')
+    };
+    const brandData = await fetchBrands(this.props.token);
 
     const id = this.props.match.params.id;
-    const data = await fetchDiscById(id);
+    const data = await fetchDiscById(id, this.props.token);
+    console.log(data.body);
     
     const matchingBrand = brandData.body.find(brand => brand.name = data.body.brand)
     this.setState({ 
@@ -30,14 +35,15 @@ export default class DetailPage extends Component {
       name: data.body.name,
       speed: data.body.speed,
       awesome: data.body.awesome,
-      image: data.body.image
+      image: data.body.image,
+      ownerId: data.body.owner_id
      });
   }
 
   handleDelete = async() => {
     const id = this.props.match.params.id;
     await deleteDisc(id);
-    this.props.history.push('/');
+    this.props.history.push('/list');
   }
   handleUpdateBtn = () => {
 
@@ -51,13 +57,14 @@ export default class DetailPage extends Component {
     const updatedDisc = {
       brand: this.state.brandId,
       name: this.state.name,
-      speed: this.state.speed,
+      speed: Number(this.state.speed),
       awesome: this.state.awesome,
-      image: this.state.image
+      image: this.state.image,
+      ownerId: this.state.ownerId
     };
     const id = this.state.discId;
-    const upData = await updateDisc(id, updatedDisc);
-    const data = await fetchDiscById(upData.body.name);
+    const upData = await updateDisc(id, updatedDisc, this.props.token);
+    const data = await fetchDiscById(upData.body.name, this.props.token);
     this.setState({ singleDisc: data.body });
   }
 

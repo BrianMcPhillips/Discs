@@ -21,7 +21,7 @@ export default class SignIn extends Component {
       email: this.state.email,
       password: this.state.password
     });
-    localStorage.setItem('token', data.body.token);
+    this.props.handleToken(data.body.token);
     this.props.history.push('/list');
   }
   handleSignIn = async(e) => {
@@ -30,7 +30,7 @@ export default class SignIn extends Component {
       email: this.state.email,
       password: this.state.password
     });
-    localStorage.setItem('token', data.body.token);
+    this.props.handleToken(data.body.token);
     this.props.history.push('/list');
   }
   handleEmail = (e) => {
