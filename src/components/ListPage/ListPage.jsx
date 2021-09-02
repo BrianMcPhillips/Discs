@@ -14,7 +14,7 @@ export default class ListPage extends Component {
     if(!this.props.token) {
       this.props.history.push('/')
     }
-    const data = await fetchDiscs(token);
+    const data = await fetchDiscs(this.props.token);
     
     this.setState({ 
       discData: data.body

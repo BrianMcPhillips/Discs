@@ -18,10 +18,13 @@ export default class DetailPage extends Component {
   }
 
   componentDidMount = async() => {
-    const brandData = await fetchBrands();
+    if(!this.props.token) {
+      this.props.history.push('/')
+    };
+    const brandData = await fetchBrands(this.props.token);
 
     const id = this.props.match.params.id;
-    const data = await fetchDiscById(id);
+    const data = await fetchDiscById(id, this.props.token);
     console.log(data.body);
     
     const matchingBrand = brandData.body.find(brand => brand.name = data.body.brand)
@@ -60,8 +63,8 @@ export default class DetailPage extends Component {
       ownerId: this.state.ownerId
     };
     const id = this.state.discId;
-    const upData = await updateDisc(id, updatedDisc);
-    const data = await fetchDiscById(upData.body.name);
+    const upData = await updateDisc(id, updatedDisc, this.props.token);
+    const data = await fetchDiscById(upData.body.name, this.props.token);
     this.setState({ singleDisc: data.body });
   }
 

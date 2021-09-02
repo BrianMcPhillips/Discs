@@ -15,6 +15,10 @@ export default class App extends Component {
     token: null
   }
 
+  handleToken = (token) => {
+    this.setState({ token: token })
+  }
+
   render() {
     const { token } = this.state;
     return (
@@ -25,7 +29,7 @@ export default class App extends Component {
             <Route
               path='/'
               exact
-              render={(routerProps) => <SignIn {...routerProps}/>}
+              render={(routerProps) => <SignIn handleToken={this.handleToken} {...routerProps}/>}
             />
             <Route
               path='/list'
