@@ -11,7 +11,9 @@ export default class ListPage extends Component {
 
   //Get data from backend and set it to state
   componentDidMount = async() => {
-    const token = localStorage.getItem('token');
+    if(!this.props.token) {
+      this.props.history.push('/')
+    }
     const data = await fetchDiscs(token);
     
     this.setState({ 

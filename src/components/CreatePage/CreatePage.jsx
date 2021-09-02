@@ -10,7 +10,11 @@ export default class CreatePage extends Component {
     awesome: false,
     image: ''
   }
-
+  componentDidMount = () => {
+    if(!this.props.token) {
+      this.props.history.push('/')
+    };
+  }
   handleSubmit = async(e) => {
     e.preventDefault();
     await createDisc({
