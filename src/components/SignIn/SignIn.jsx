@@ -12,9 +12,11 @@ export default class SignIn extends Component {
   handleSwitchOn = () => {
     this.setState({ switchState: 'On' });
   }
+
   handleSwitchOff = () => {
     this.setState({ switchState: 'Off' });
   }
+
   handleSignUp = async(e) => {
     e.preventDefault();
     const data = await signUp({
@@ -22,8 +24,10 @@ export default class SignIn extends Component {
       password: this.state.password
     });
     this.props.handleToken(data.body.token);
+    localStorage.setItem('token', data.body.token);
     this.props.history.push('/list');
   }
+
   handleSignIn = async(e) => {
     e.preventDefault();
     const data = await signIn({
@@ -31,11 +35,14 @@ export default class SignIn extends Component {
       password: this.state.password
     });
     this.props.handleToken(data.body.token);
+    localStorage.setItem('token', data.body.token);
     this.props.history.push('/list');
   }
+
   handleEmail = (e) => {
     this.setState({ email: e.target.value })
   }
+  
   handlePassword = (e) => {
     this.setState({ password: e.target.value })
   }
