@@ -11,7 +11,7 @@ export default class CreatePage extends Component {
     image: ''
   }
   componentDidMount = () => {
-    if(this.props.token) {
+    if(!this.props.token) {
       this.props.history.push('/')
     };
   }
