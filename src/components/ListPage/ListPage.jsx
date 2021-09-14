@@ -13,14 +13,12 @@ export default class ListPage extends Component {
   componentDidMount = async() => {
     if(!this.props.token) {
       this.props.history.push('/')
-    }
+    } else {
     const data = await fetchDiscs(this.props.token);
-    
-    this.setState({ 
-      discData: data.body
-    })
-    
+    this.setState({ discData: data.body });
+    } 
   }
+  
   render() {
     //Destructure state
     const { discData } = this.state;

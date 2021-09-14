@@ -20,13 +20,10 @@ export default class DetailPage extends Component {
   componentDidMount = async() => {
     if(!this.props.token) {
       this.props.history.push('/')
-    };
-    const brandData = await fetchBrands(this.props.token);
-
+    } else {
+    const brandData = await fetchBrands();
     const id = this.props.match.params.id;
-    const data = await fetchDiscById(id, this.props.token);
-    console.log(data.body);
-    
+    const data = await fetchDiscById(id);
     const matchingBrand = brandData.body.find(brand => brand.name = data.body.brand)
     this.setState({ 
       singleDisc: data.body,
@@ -38,6 +35,7 @@ export default class DetailPage extends Component {
       image: data.body.image,
       ownerId: data.body.owner_id
      });
+    }
   }
 
   handleDelete = async() => {
@@ -45,6 +43,7 @@ export default class DetailPage extends Component {
     await deleteDisc(id);
     this.props.history.push('/list');
   }
+
   handleUpdateBtn = () => {
 
     this.state.updateBtn === 'Off' 
@@ -63,28 +62,28 @@ export default class DetailPage extends Component {
       ownerId: this.state.ownerId
     };
     const id = this.state.discId;
-    const upData = await updateDisc(id, updatedDisc, this.props.token);
-    const data = await fetchDiscById(upData.body.name, this.props.token);
+    const upData = await updateDisc(id, updatedDisc);
+    const data = await fetchDiscById(upData.body.name);
     this.setState({ singleDisc: data.body });
   }
 
-  handleBrandChange = (e) => {
+  handleBrandChange = e => {
     this.setState({ brandId: Number(e.target.value) });
   }
 
-  handleNameChange = (e) => {
+  handleNameChange = e => {
     this.setState({ name: e.target.value });
   }
 
-  handleSpeedChange = (e) => {
+  handleSpeedChange = e => {
     this.setState({ speed: e.target.value });
   }
 
-  handleAwesomeChange = (e) => {
+  handleAwesomeChange = e => {
     this.setState({ awesome: e.target.checked });
   }
 
-  handleImageChange = (e) => {
+  handleImageChange = e => {
     this.setState({ image: e.target.value });
   }
   

@@ -12,13 +12,13 @@ import SignIn from './SignIn/SignIn';
 
 export default class App extends Component {
   state = {
-    token: null
+    token: ''
   }
 
-  handleToken = (token) => {
-    this.setState({ token: token })
+  handleToken = input => {
+    this.setState({ token: input })
   }
-
+  
   render() {
     const { token } = this.state;
     return (

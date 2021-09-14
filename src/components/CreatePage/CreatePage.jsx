@@ -23,9 +23,8 @@ export default class CreatePage extends Component {
       speed: this.state.speed,
       awesome: this.state.awesome,
       image: this.state.image
-    }, this.props.token);
+    });
     this.props.history.push('/list');
-
   }
 
   handleBrandChange = (e) => {

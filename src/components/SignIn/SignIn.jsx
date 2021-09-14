@@ -12,9 +12,11 @@ export default class SignIn extends Component {
   handleSwitchOn = () => {
     this.setState({ switchState: 'On' });
   }
+
   handleSwitchOff = () => {
     this.setState({ switchState: 'Off' });
   }
+
   handleSignUp = async(e) => {
     e.preventDefault();
     const data = await signUp({
@@ -22,20 +24,25 @@ export default class SignIn extends Component {
       password: this.state.password
     });
     this.props.handleToken(data.body.token);
+    localStorage.setItem('token', data.body.token);
     this.props.history.push('/list');
   }
+
   handleSignIn = async(e) => {
     e.preventDefault();
     const data = await signIn({
       email: this.state.email,
       password: this.state.password
     });
+    localStorage.setItem('token', data.body.token);
     this.props.handleToken(data.body.token);
     this.props.history.push('/list');
   }
+
   handleEmail = (e) => {
     this.setState({ email: e.target.value })
   }
+  
   handlePassword = (e) => {
     this.setState({ password: e.target.value })
   }
@@ -80,12 +87,12 @@ export default class SignIn extends Component {
                   <input onChange={this.handlePassword} type="password" required/>
                   <label>Password</label>
                 </div>
+                </form>
                 <button className={styles.btn}>Sign Up</button>
                 <p className={styles.text}>
                   Already have an account?
                   <button onClick={this.handleSwitchOff}>Sign In</button>
                 </p>
-              </form>
             </div>
         }
       </div>
