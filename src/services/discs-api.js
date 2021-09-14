@@ -1,9 +1,10 @@
 import request from 'superagent';
 
 const URL = process.env.REACT_APP_URL;
-const token = localStorage.getItem('token');
+
 
 export const fetchDiscs = () => { 
+  const token = localStorage.getItem('token');
   try {
     return request.get(`${URL}/api/discs`).set('Authorization', token);
   } catch(e) {
@@ -12,6 +13,7 @@ export const fetchDiscs = () => {
 }
 
 export const fetchDiscById = id => {
+  const token = localStorage.getItem('token');
   try {
     return request.get(`${URL}/api/discs/${id}`).set('Authorization', token);
   } catch(e) {
@@ -20,6 +22,7 @@ export const fetchDiscById = id => {
 }
 
 export const createDisc = discData => { 
+  const token = localStorage.getItem('token');
   try {
     return request.post(`${URL}/api/discs`).set('Authorization', token).send(discData); 
   } catch(e) {
@@ -34,6 +37,7 @@ export const fetchBrands = () => {
   }
 }
 export const deleteDisc = id => {
+  const token = localStorage.getItem('token');
   try {
   return request.delete(`${URL}/api/discs/${id}`).set('Authorization', token);
   } catch(e) {
@@ -41,6 +45,7 @@ export const deleteDisc = id => {
   }
 }
 export const updateDisc = (id, updatedDisc) => {
+  const token = localStorage.getItem('token');
   try {
     return request.put(`${URL}/api/discs/${id}`).set('Authorization', token).send(updatedDisc);
   } catch(e) {

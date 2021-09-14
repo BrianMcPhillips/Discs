@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import styles from './Header.module.css';
 
 export default class Header extends Component {
+
+  clearToken = () => {
+    localStorage.removeItem('token');
+  }
   render() {
     return (
       <div className={styles.header}>
@@ -11,6 +15,7 @@ export default class Header extends Component {
           <Link to='/list'>Home</Link>
           <Link to='/create'>Create Page</Link>
         </div>
+        <button onClick={this.clearToken}>Sign Out</button>
       </div>
     )
   }
